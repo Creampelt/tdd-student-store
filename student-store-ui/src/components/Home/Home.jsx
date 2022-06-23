@@ -3,7 +3,7 @@ import ProductGrid from "./ProductGrid/ProductGrid";
 import { Search as SearchIcon, QuestionMark, ShoppingCart } from "@mui/icons-material";
 import studentStoreIcon from "../../images/student-store-icon.svg";
 import "./Home.css";
-import { productCategories } from "../../constants/products";
+import productCategories from "../../constants/productCategories";
 
 const Banner = () => (
   <div className={"banner"}>
@@ -43,7 +43,7 @@ const Search = ({ categoryIndex, setCategoryIndex }) => {
   )
 };
 
-const Home = () => {
+const Home = ({ cart, updateProductInCart, products }) => {
   const [categoryIndex, setCategoryIndex] = React.useState(0);
   const [cartContents, setCartContents] = React.useState({});
 
@@ -51,7 +51,7 @@ const Home = () => {
     <div className={"home"}>
       <Banner />
       <Search categoryIndex={categoryIndex} setCategoryIndex={setCategoryIndex} />
-      <ProductGrid cartContents={cartContents} setCartContents={setCartContents} />
+      <ProductGrid products={products} cart={cart} updateProductInCart={updateProductInCart} />
     </div>
   );
 };
