@@ -52,19 +52,6 @@
   color: var(--font-light);
 }
 
-.search-button {
-  margin: 0 0 0 5px;
-  border: none;
-  background-color: var(--bright-green);
-  cursor: pointer;
-  border-radius: 5px;
-  padding: 10px;
-}
-
-.search-button:hover {
-  background-color: var(--muted-green);
-}
-
 .categories {
   display: flex;
   list-style: none;

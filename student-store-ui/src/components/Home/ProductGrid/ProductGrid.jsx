@@ -26,7 +26,7 @@ const ProductCard = ({ id, image, name, price, countInCart, setCountInCart }) =>
 const ProductGrid = ({ products, cart, updateProductInCart }) => {
   return (
     <div className={"product-grid"}>
-      {products ? (
+      {products && products.length > 0 ? (
         products.map(({ id, ...product }) => (
           <ProductCard
             key={id}
