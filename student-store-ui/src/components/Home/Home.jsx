@@ -21,37 +21,43 @@ const Banner = () => (
   </div>
 );
 
-const Search = ({ categoryIndex, setCategoryIndex }) => {
-  return (
-    <div className={"product-grid-header"}>
-      <form className={"search"}>
-        <input type={"text"} className={"search-bar"} placeholder={"Search"}/>
-        <button type={"submit"} className={"search-button"}>
-          <SearchIcon style={{color: "fff", fontSize: 35}}/>
-        </button>
-      </form>
-      <ul className={"categories"}>
-        <li onClick={() => setCategoryIndex(0)}>
-          All Categories
-          <span className={"underline"} style={{transform: `translateX(${categoryIndex * 100}%)`}}/>
-        </li>
-        {productCategories.map(({key, label}, i) => (
-          <li key={key} onClick={() => setCategoryIndex(i + 1)}>{label}</li>
-        ))}
-      </ul>
-    </div>
-  )
-};
+const Search = ({ categoryIndex, setCategoryIndex }) => (
+  <div className={"product-grid-header"}>
+    <form className={"search"}>
+      <input type={"text"} className={"search-bar"} placeholder={"Search"}/>
+      <button type={"submit"} className={"search-button"}>
+        <SearchIcon style={{ color: "fff", fontSize: 35 }}/>
+      </button>
+    </form>
+    <ul className={"categories"}>
+      <li onClick={() => setCategoryIndex(-1)}>
+        All Categories
+        <span className={"underline"} style={{ transform: `translateX(${(categoryIndex + 1) * 100}%)` }}/>
+      </li>
+      {productCategories.map(({key, label}, i) => (
+        <li key={key} onClick={() => setCategoryIndex(i)}>{label}</li>
+      ))}
+    </ul>
+  </div>
+);
 
 const Home = ({ cart, updateProductInCart, products }) => {
-  const [categoryIndex, setCategoryIndex] = React.useState(0);
+  const [categoryIndex, setCategoryIndex] = React.useState(-1);
   const [cartContents, setCartContents] = React.useState({});
+
+  const filteredProducts = categoryIndex === -1 ? products
+    : products.filter(({ category }) => category === productCategories[categoryIndex].key);
 
   return (
     <div className={"home"}>
       <Banner />
       <Search categoryIndex={categoryIndex} setCategoryIndex={setCategoryIndex} />
-      <ProductGrid products={products} cart={cart} updateProductInCart={updateProductInCart} />
+      <ProductGrid
+        products={filteredProducts}
+        category={productCategories[categoryIndex]}
+        cart={cart}
+        updateProductInCart={updateProductInCart}
+      />
     </div>
   );
 };
