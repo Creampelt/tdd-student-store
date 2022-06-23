@@ -5,7 +5,7 @@ import "./Sidebar.css";
 const CART_TABLE_HEADERS = ["Name", "Quantity", "Unite Price", "Cost"];
 
 const Sidebar = ({ cart }) => {
-  const [open, setOpen] = React.useState(true);
+  const [open, setOpen] = React.useState(false);
   const toggleOpen = () => setOpen((prev) => !prev);
   const price = Object.values(cart).reduce((total, { price }) => total + price, 0);
   return (
