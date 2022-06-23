@@ -1,6 +1,5 @@
 import * as React from "react";
 import ProductGrid from "./ProductGrid/ProductGrid";
-import { Search as SearchIcon, QuestionMark, ShoppingCart } from "@mui/icons-material";
 import studentStoreIcon from "../../images/student-store-icon.svg";
 import "./Home.css";
 import productCategories from "../../constants/productCategories";
@@ -21,37 +20,59 @@ const Banner = () => (
   </div>
 );
 
-const Search = ({ categoryIndex, setCategoryIndex }) => (
-  <div className={"product-grid-header"}>
-    <form className={"search"}>
-      <input type={"text"} className={"search-bar"} placeholder={"Search"}/>
-      <button type={"submit"} className={"search-button"}>
-        <SearchIcon style={{ color: "fff", fontSize: 35 }}/>
-      </button>
-    </form>
-    <ul className={"categories"}>
-      <li onClick={() => setCategoryIndex(-1)}>
-        All Categories
-        <span className={"underline"} style={{ transform: `translateX(${(categoryIndex + 1) * 100}%)` }}/>
-      </li>
-      {productCategories.map(({key, label}, i) => (
-        <li key={key} onClick={() => setCategoryIndex(i)}>{label}</li>
-      ))}
-    </ul>
-  </div>
-);
+const Search = ({ categoryIndex, setCategoryIndex, onSearch }) => {
+  const [query, setQuery] = React.useState("");
+  React.useEffect(() => onSearch(query), [query]);
+
+  return (
+    <div className={"product-grid-header"}>
+      <form className={"search"} onSubmit={(e) => e.preventDefault()}>
+        <input
+          type={"text"}
+          className={"search-bar"}
+          placeholder={"Search"}
+          value={query}
+          onChange={({target}) => setQuery(target.value)}
+        />
+      </form>
+      <ul className={"categories"}>
+        <li onClick={() => setCategoryIndex(-1)}>
+          All Categories
+          <span className={"underline"} style={{transform: `translateX(${(categoryIndex + 1) * 100}%)`}}/>
+        </li>
+        {productCategories.map(({key, label}, i) => (
+          <li key={key} onClick={() => setCategoryIndex(i)}>{label}</li>
+        ))}
+      </ul>
+    </div>
+  )
+};
 
 const Home = ({ cart, updateProductInCart, products }) => {
   const [categoryIndex, setCategoryIndex] = React.useState(-1);
   const [cartContents, setCartContents] = React.useState({});
+  const [filteredProducts, setFilteredProducts] = React.useState([]);
 
-  const filteredProducts = categoryIndex === -1 ? products
-    : products.filter(({ category }) => category === productCategories[categoryIndex].key);
+  const search = (query) => {
+    if (query.length === 0)
+      filterProductsByCategory();
+    else
+      setFilteredProducts(products.filter(({ name }) => name.toLowerCase().includes(query.toLowerCase())));
+  };
+
+  const filterProductsByCategory = () => {
+    setFilteredProducts(categoryIndex === -1
+      ? products
+      : products.filter(({ category }) => category === productCategories[categoryIndex].key)
+    );
+  };
+
+  React.useEffect(filterProductsByCategory, [products, categoryIndex]);
 
   return (
     <div className={"home"}>
       <Banner />
-      <Search categoryIndex={categoryIndex} setCategoryIndex={setCategoryIndex} />
+      <Search categoryIndex={categoryIndex} setCategoryIndex={setCategoryIndex} onSearch={search} />
       <ProductGrid
         products={filteredProducts}
         category={productCategories[categoryIndex]}
