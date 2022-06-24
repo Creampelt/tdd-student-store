@@ -50,7 +50,6 @@ const Search = ({ categoryIndex, setCategoryIndex, onSearch }) => {
 
 const Home = ({ cart, updateProductInCart, products }) => {
   const [categoryIndex, setCategoryIndex] = React.useState(-1);
-  const [cartContents, setCartContents] = React.useState({});
   const [filteredProducts, setFilteredProducts] = React.useState([]);
 
   const search = (query) => {
