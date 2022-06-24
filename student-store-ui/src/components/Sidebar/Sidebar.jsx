@@ -1,8 +1,7 @@
 import * as React from "react";
 import { ChevronRightRounded } from "@mui/icons-material";
+import cartHeaders from "../../constants/cart";
 import "./Sidebar.css";
-
-const CART_TABLE_HEADERS = ["Name", "Quantity", "Unite Price", "Cost"];
 
 const Sidebar = ({ cart }) => {
   const [open, setOpen] = React.useState(false);
@@ -12,23 +11,24 @@ const Sidebar = ({ cart }) => {
     <section className={`sidebar ${open ? "open" : ""}`}>
       <div className={"shopping-cart"}>
         <h2>Shopping Cart</h2>
-        <table>
-          <thead>
+        {Object.keys(cart).length === 0 ? <p>No items added to cart yet. Start shopping now!</p> : (
+          <table>
+            <thead>
             <tr>
-              {CART_TABLE_HEADERS.map((header) => <th key={header}>{header}</th>)}
+              {cartHeaders.map((header) => <th key={header}>{header}</th>)}
             </tr>
-          </thead>
-          <tbody>
+            </thead>
+            <tbody>
             {Object.keys(cart).map((id) => (
               <tr key={id}>
-                <td>{cart[id].label}</td>
+                <td>{cart[id].name}</td>
                 <td>{cart[id].count}</td>
                 <td>${cart[id].price.toFixed(2)}</td>
                 <td>${(cart[id].price * cart[id].count).toFixed(2)}</td>
               </tr>
             ))}
-          </tbody>
-          <tfoot>
+            </tbody>
+            <tfoot>
             <tr>
               <th colSpan={3}>Subtotal</th>
               <td>${price.toFixed(2)}</td>
@@ -41,8 +41,9 @@ const Sidebar = ({ cart }) => {
               <th colSpan={3}>Total</th>
               <td>${(price * 1.0875).toFixed(2)}</td>
             </tr>
-          </tfoot>
-        </table>
+            </tfoot>
+          </table>
+        )}
       </div>
       <div className={"payment-info"}>
         <h2>Payment Info</h2>

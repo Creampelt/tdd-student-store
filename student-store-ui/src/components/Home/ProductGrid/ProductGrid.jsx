@@ -2,18 +2,23 @@ import * as React from "react";
 import { Add, Remove } from "@mui/icons-material";
 import "./ProductGrid.css";
 
-const ProductCard = ({ id, image, name, price, countInCart, setCountInCart }) => (
+const ProductCard = ({ image, name, price, countInCart = 0, setCountInCart }) => (
   <div className={"product-card"}>
     <img src={image} alt={name}/>
     <div className={"product-description"}>
       <div className={"title-and-count"}>
         <p>{name}</p>
         <div className={"cart-count"}>
-          <button>
-            <Add />
+          <button onClick={() => setCountInCart(countInCart + 1)}>
+            <Add/>
           </button>
-          <input type={"number"} value={countInCart} placeholder={"0"} onChange={(value) => setCountInCart(value)} />
-          <button>
+          <input
+            type={"number"}
+            value={countInCart.toString()}
+            placeholder={"0"}
+            onChange={({target}) => setCountInCart(target.value)}
+          />
+          <button onClick={() => setCountInCart(countInCart - 1)}>
             <Remove/>
           </button>
         </div>
@@ -30,9 +35,8 @@ const ProductGrid = ({ products, cart, updateProductInCart }) => {
         products.map(({ id, ...product }) => (
           <ProductCard
             key={id}
-            countInCart={cart[id]?.count || 0}
+            countInCart={cart[id]?.count}
             setCountInCart={(value) => updateProductInCart(id, value)}
-            id={id}
             {...product}
           />
         ))
