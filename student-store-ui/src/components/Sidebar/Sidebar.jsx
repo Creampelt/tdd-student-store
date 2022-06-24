@@ -1,60 +1,34 @@
 import * as React from "react";
 import { ChevronRightRounded } from "@mui/icons-material";
-import cartHeaders from "../../constants/cart";
+import SelectedProductsTable from "../SelectedProductsTable/SelectedProductsTable";
 import "./Sidebar.css";
 
-const Sidebar = ({ cart }) => {
+const Sidebar = ({ cart, name, setName, email, setEmail, onCheckout }) => {
   const [open, setOpen] = React.useState(false);
   const toggleOpen = () => setOpen((prev) => !prev);
-  const price = Object.values(cart).reduce((total, { price }) => total + price, 0);
+
+  const onFormSubmit = (e) => {
+    e.preventDefault();
+    if (Object.keys(cart).length === 0) return;
+    setOpen(false);
+    onCheckout();
+  }
+
   return (
     <section className={`sidebar ${open ? "open" : ""}`}>
       <div className={"shopping-cart"}>
         <h2>Shopping Cart</h2>
-        {Object.keys(cart).length === 0 ? <p>No items added to cart yet. Start shopping now!</p> : (
-          <table>
-            <thead>
-            <tr>
-              {cartHeaders.map((header) => <th key={header}>{header}</th>)}
-            </tr>
-            </thead>
-            <tbody>
-            {Object.keys(cart).map((id) => (
-              <tr key={id}>
-                <td>{cart[id].name}</td>
-                <td>{cart[id].count}</td>
-                <td>${cart[id].price.toFixed(2)}</td>
-                <td>${(cart[id].price * cart[id].count).toFixed(2)}</td>
-              </tr>
-            ))}
-            </tbody>
-            <tfoot>
-            <tr>
-              <th colSpan={3}>Subtotal</th>
-              <td>${price.toFixed(2)}</td>
-            </tr>
-            <tr>
-              <th colSpan={3}>Taxes &amp; Fees</th>
-              <td>${(price * 0.0875).toFixed(2)}</td>
-            </tr>
-            <tr>
-              <th colSpan={3}>Total</th>
-              <td>${(price * 1.0875).toFixed(2)}</td>
-            </tr>
-            </tfoot>
-          </table>
-        )}
+        {Object.keys(cart).length === 0
+          ? <p>No items added to cart yet. Start shopping now!</p>
+          : <SelectedProductsTable selectedProducts={cart} />
+        }
       </div>
       <div className={"payment-info"}>
         <h2>Payment Info</h2>
-        <form className={"payment-form"}>
-          <input type={"text"} placeholder={"Name"} />
-          <input type={"email"} placeholder={"Email"} />
-          <label className={"terms-and-conditions"}>
-            <input type={"checkbox"} />
-            I have read and agree to the <a href={"/#terms-and-conditions"}>terms and conditions</a>
-          </label>
-          <input type={"submit"} />
+        <form className={"payment-form"} onSubmit={onFormSubmit}>
+          <input type={"text"} required placeholder={"Name"} value={name} onChange={({ target }) => setName(target.value)} />
+          <input type={"email"} required placeholder={"Email"} value={email} onChange={({ target }) => setEmail(target.value)} />
+          <input type={"submit"} value={"Check out"} />
         </form>
       </div>
       <button className={"toggle-open"} onClick={toggleOpen}>
