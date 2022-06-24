@@ -2,6 +2,7 @@ import * as React from "react";
 import Navbar from "../Navbar/Navbar";
 import Sidebar from "../Sidebar/Sidebar";
 import Home from "../Home/Home";
+import CheckoutReceipt from "../CheckoutReceipt/CheckoutReceipt";
 import "./App.css";
 import { BrowserRouter } from "react-router-dom";
 import axios from "axios";
@@ -11,6 +12,10 @@ const API_LINK = "https://codepath-store-api.herokuapp.com/store";
 export default function App() {
   const [cart, setCart] = React.useState({});
   const [products, setProducts] = React.useState();
+  const [receipt, setReceipt] = React.useState({});
+  const [hideReceipt, setHideReceipt] = React.useState(true);
+  const [name, setName] = React.useState("");
+  const [email, setEmail] = React.useState("");
 
   const updateProductInCart = (id, count) => {
     setCart((prev) => {
@@ -47,6 +52,12 @@ export default function App() {
     });
   };
 
+  const onCheckout = () => {
+    setReceipt(cart);
+    setCart({});
+    setHideReceipt(false);
+  };
+
   React.useEffect(() => {
     axios.get(API_LINK).then(({ data }) => {
       setProducts(data.products);
@@ -57,11 +68,25 @@ export default function App() {
     <div className="app">
       <BrowserRouter>
         <main>
-          <Sidebar cart={cart} />
+          <Sidebar
+            cart={cart}
+            name={name}
+            setName={setName}
+            email={email}
+            setEmail={setEmail}
+            onCheckout={onCheckout}
+          />
           <div className={"content"}>
             <Navbar />
             <Home cart={cart} updateProductInCart={updateProductInCart} products={products} />
           </div>
+          <CheckoutReceipt
+            receipt={receipt}
+            hidden={hideReceipt}
+            name={name}
+            email={email}
+            onClose={() => setHideReceipt(true)}
+          />
         </main>
       </BrowserRouter>
     </div>

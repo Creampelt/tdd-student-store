@@ -9,8 +9,8 @@ const ProductCard = ({ image, name, price, countInCart = 0, setCountInCart }) =>
       <div className={"title-and-count"}>
         <p>{name}</p>
         <div className={"cart-count"}>
-          <button onClick={() => setCountInCart(countInCart + 1)}>
-            <Add/>
+          <button onClick={() => setCountInCart(countInCart - 1)}>
+            <Remove/>
           </button>
           <input
             type={"number"}
@@ -18,8 +18,8 @@ const ProductCard = ({ image, name, price, countInCart = 0, setCountInCart }) =>
             placeholder={"0"}
             onChange={({target}) => setCountInCart(target.value)}
           />
-          <button onClick={() => setCountInCart(countInCart - 1)}>
-            <Remove/>
+          <button onClick={() => setCountInCart(countInCart + 1)}>
+            <Add/>
           </button>
         </div>
       </div>
