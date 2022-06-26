@@ -1,8 +1,10 @@
 import * as React from "react";
-import ProductGrid from "./ProductGrid/ProductGrid";
+import ProductGrid from "../ProductGrid/ProductGrid";
+import ProductDetail from "../ProductDetail/ProductDetail";
 import studentStoreIcon from "../../images/student-store-icon.svg";
-import "./Home.css";
 import productCategories from "../../constants/productCategories";
+import { Route, Routes } from "react-router-dom";
+import "./Home.css";
 
 const Banner = () => (
   <div className={"banner"}>
@@ -48,7 +50,7 @@ const Search = ({ categoryIndex, setCategoryIndex, onSearch }) => {
   )
 };
 
-const Home = ({ cart, updateProductInCart, products }) => {
+const Home = ({ cart, updateProductInCart, products, setModalShown }) => {
   const [categoryIndex, setCategoryIndex] = React.useState(-1);
   const [filteredProducts, setFilteredProducts] = React.useState([]);
 
@@ -78,6 +80,12 @@ const Home = ({ cart, updateProductInCart, products }) => {
         cart={cart}
         updateProductInCart={updateProductInCart}
       />
+      <Routes>
+        <Route path={"products"}>
+          <Route path={":productId"} element={<ProductDetail products={products} setModalShown={setModalShown} />} />
+        </Route>
+        <Route path={"/"} element={null} />
+      </Routes>
     </div>
   );
 };
