@@ -16,6 +16,8 @@ const ProductDetail = ({ products, setModalShown }) => {
       setShown(false);
       setModalShown(false);
       setTimeout(() => navigate("/"), ANIMATION_DURATION);
+    } else {
+      navigate("/");
     }
   }
 
