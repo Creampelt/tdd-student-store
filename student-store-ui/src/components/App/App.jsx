@@ -14,6 +14,7 @@ export default function App() {
   const [products, setProducts] = React.useState();
   const [receipt, setReceipt] = React.useState({});
   const [hideReceipt, setHideReceipt] = React.useState(true);
+  const [modalShown, setModalShown] = React.useState(false);
   const [name, setName] = React.useState("");
   const [email, setEmail] = React.useState("");
 
@@ -56,6 +57,7 @@ export default function App() {
     setReceipt(cart);
     setCart({});
     setHideReceipt(false);
+    setModalShown(true);
   };
 
   React.useEffect(() => {
@@ -65,7 +67,7 @@ export default function App() {
   }, []);
 
   return (
-    <div className="app">
+    <div className={`app ${modalShown ? "modal-shown" : ""}`}>
       <BrowserRouter>
         <main>
           <Sidebar
@@ -78,14 +80,19 @@ export default function App() {
           />
           <div className={"content"}>
             <Navbar />
-            <Home cart={cart} updateProductInCart={updateProductInCart} products={products} />
+            <Home
+              cart={cart}
+              updateProductInCart={updateProductInCart}
+              products={products}
+              setModalShown={setModalShown}
+            />
           </div>
           <CheckoutReceipt
             receipt={receipt}
             hidden={hideReceipt}
             name={name}
             email={email}
-            onClose={() => setHideReceipt(true)}
+            onClose={() => { setHideReceipt(true); setModalShown(false) }}
           />
         </main>
       </BrowserRouter>

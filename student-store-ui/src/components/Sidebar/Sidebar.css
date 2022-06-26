@@ -1,6 +1,5 @@
 .sidebar {
   transition: var(--transition);
-  padding: 20px;
   height: 100vh;
   position: fixed;
   top: 0;
@@ -18,6 +17,12 @@
 .sidebar h2 {
   margin: 0 0 20px 0;
   text-align: center;
+}
+
+.sidebar-content {
+  height: 100%;
+  overflow-y: scroll;
+  padding: 20px;
 }
 
 .shopping-cart {
