@@ -1,6 +1,9 @@
 import * as React from "react";
 import ProductGrid from "../ProductGrid/ProductGrid";
 import ProductDetail from "../ProductDetail/ProductDetail";
+import About from "../About/About";
+import Contact from "../Contact/Contact";
+import Footer from "../Footer/Footer";
 import studentStoreIcon from "../../images/student-store-icon.svg";
 import productCategories from "../../constants/productCategories";
 import { Route, Routes } from "react-router-dom";
@@ -80,6 +83,11 @@ const Home = ({ cart, updateProductInCart, products, setModalShown }) => {
         cart={cart}
         updateProductInCart={updateProductInCart}
       />
+      <div className={"about-and-contact"}>
+        <About />
+        <Contact />
+      </div>
+      <Footer />
       <Routes>
         <Route path={"products"}>
           <Route path={":productId"} element={<ProductDetail products={products} setModalShown={setModalShown} />} />

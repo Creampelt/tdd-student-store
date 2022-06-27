@@ -82,3 +82,19 @@
 .categories li:hover {
   background-color: var(--grey-hover);
 }
+
+.about-and-contact {
+  display: flex;
+  justify-content: stretch;
+  align-self: center;
+  width: 100%;
+  padding: 60px;
+}
+
+.about-and-contact > div {
+  background-color: var(--pure-white);
+  flex: 1;
+  margin: 30px;
+  padding: 30px;
+  border-radius: 5px;
+}

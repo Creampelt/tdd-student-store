@@ -10,14 +10,14 @@ Selling merchandise in the modern era requires digital solutions. For this proje
 
 #### Core Features
 
-- [ ] Displays the following sections:
+- [x] Displays the following sections:
   - [x] header
   - [x] banner
   - [x] search
   - [x] product grid
-  - [ ] about
-  - [ ] contact
-  - [ ] footer
+  - [x] about
+  - [x] contact
+  - [x] footer
 - [x] On initial page load, display the products at the [GET /store endpoint](https://codepath-store-api.herokuapp.com/store).
 - [x] User can click on the categories (Clothing, food, etc) to filter the product grid by type.
 - [x] User can search for products.
