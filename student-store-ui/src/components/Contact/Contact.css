@@ -1,0 +1,16 @@
+.contact h2 {
+  margin: 10px;
+}
+
+.contact-table {
+  text-align: left;
+}
+
+.contact-table th, td {
+  padding: 10px;
+}
+
+.contact-table a {
+  color: inherit;
+  margin: 0 20px 0 0;
+}
