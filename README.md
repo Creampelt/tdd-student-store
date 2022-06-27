@@ -293,20 +293,20 @@ The following specifications were met on the Express backend and the React front
 
 * Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Add your response here
+I do think that the labs did help prepare me to complete the assignment. However, it's difficult for me to tell since I have some experience in React -- I probably would have needed much more time to grasp the concepts otherwise.
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-Add your response here
+I did notice some bugs after submission (will probably fix for next week :smiley:), and there were some glitches in the UI that I would have spent more time smoothing over. I also would have completed the navbar stretch feature (will also probably do for next week :relieved:)
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+I think the project demo went well.
 
 ### Open-source libraries used
 
-- Add any links to open-source libraries used in your project.
+- [Material Icons](https://mui.com/material-ui/material-icons/) for icons
 
 ### Shout out
 
-Give a shout out to somebody from your cohort that especially helped you during your project. This can be a fellow peer, instructor, TA, mentor, etc.
+Shout out to Adiel for keeping me entertained while I coded :smiley:.
