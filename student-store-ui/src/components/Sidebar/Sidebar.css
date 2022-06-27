@@ -7,6 +7,7 @@
   transform: translateX(-100%);
   z-index: 10001;
   background-color: var(--pure-white);
+  min-width: 350px;
 }
 
 .sidebar.open {
@@ -25,51 +26,7 @@
   padding: 20px;
 }
 
-.shopping-cart {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
-.payment-info {
-  padding: 30px 0;
-}
-
-.payment-form {
-  display: flex;
-  flex-direction: column;
-}
-
-.payment-form input[type=text], input[type=email] {
-  padding: 10px;
-  font-family: var(--font);
-  font-size: 16px;
-  border: none;
-  margin: 5px 0;
-  background-color: var(--grey-bg);
-  border-radius: 3px;
-}
-
-.payment-form a {
-  color: var(--bright-green);
-}
-
-.payment-form input[type=submit] {
-  border: none;
-  background-color: var(--bright-green);
-  padding: 10px;
-  margin: 5px 0;
-  border-radius: 3px;
-  font-family: var(--font);
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.payment-form input[type=submit]:hover {
-  background-color: var(--muted-green);
-}
-
-.toggle-open {
+.toggle-button {
   background-color: var(--pure-white);
   color: var(--font-dark);
   position: absolute;
@@ -86,10 +43,10 @@
   clip-path: inset(-7px -7px -7px 0);
 }
 
-.toggle-open .chevron {
+.toggle-button .chevron {
   transition: var(--transition);
 }
 
-.sidebar.open .toggle-open .chevron {
+.sidebar.open .toggle-button .chevron {
   transform: rotate(180deg) translateX(3px);
 }

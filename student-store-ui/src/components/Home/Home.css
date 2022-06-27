@@ -8,30 +8,6 @@
   background-color: var(--grey-bg);
 }
 
-.banner {
-  width: 100%;
-  background-color: var(--bright-green);
-  color: var(--pure-white);
-  padding: 60px;
-  display: flex;
-  align-items: center;
-}
-
-.banner img {
-  width: 200px;
-  height: 200px;
-  margin: 60px;
-}
-
-.banner-text h1 {
-  font-size: 5em;
-  margin: 0;
-}
-
-.banner-text p {
-  font-size: 1.5em;
-}
-
 .search {
   width: 100%;
   display: flex;

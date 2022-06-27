@@ -4,66 +4,86 @@ import Sidebar from "../Sidebar/Sidebar";
 import Home from "../Home/Home";
 import CheckoutReceipt from "../CheckoutReceipt/CheckoutReceipt";
 import "./App.css";
-import { BrowserRouter } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import axios from "axios";
-
-const API_LINK = "https://codepath-store-api.herokuapp.com/store";
+import api from "../../constants/api";
+import ProductDetail from "../ProductDetail/ProductDetail";
 
 export default function App() {
-  const [cart, setCart] = React.useState({});
-  const [products, setProducts] = React.useState();
-  const [receipt, setReceipt] = React.useState({});
+  const [shoppingCart, setShoppingCart] = React.useState([]);
+  const [products, setProducts] = React.useState([]);
+  // TODO: add loading indicator when fetching
+  const [isFetching, setIsFetching] = React.useState(true);
+  // TODO: display error message
+  const [error, setError] = React.useState("");
+  // whether sidebar is open
+  const [isOpen, setIsOpen] = React.useState(false);
+  const [receipt, setReceipt] = React.useState([]);
   const [hideReceipt, setHideReceipt] = React.useState(true);
   const [modalShown, setModalShown] = React.useState(false);
-  const [name, setName] = React.useState("");
-  const [email, setEmail] = React.useState("");
+  const [checkoutForm, setCheckoutForm] = React.useState({ name: "", email: "" });
 
-  const updateProductInCart = (id, count) => {
-    setCart((prev) => {
+  const updateProductInCart = (id, quantity) => {
+    setShoppingCart((prev) => {
       // don't update if products haven't loaded
-      if (!products) return prev;
-      let newCount = parseInt(count);
+      if (products.length === 0) return prev;
+      let newQuantity = parseInt(quantity);
       // if value written isn't a number or is less than zero, set cart value to 0
-      if (isNaN(newCount) || newCount < 0) newCount = 0;
+      if (isNaN(newQuantity) || newQuantity < 0) newQuantity = 0;
       // if this product is already in the cart...
-      if (prev[id]) {
-        // remove product from cart if new count is 0
-        if (newCount === 0) {
-          const nextState = { ...prev };
-          delete nextState[id];
-          return nextState;
+      const existingProduct = shoppingCart.findIndex(({ itemId }) => id === itemId);
+      const nextState = [ ...prev ];
+      if (existingProduct > -1) {
+        if (newQuantity === 0) {
+          // remove product from cart if new quantity is 0
+          nextState.splice(existingProduct, 1);
+        } else {
+          // update quantity in cart
+          nextState[existingProduct] = { itemId: id, quantity: newQuantity };
         }
-        // update count in cart
-        return {
-          ...prev,
-          [id]: {...prev[id], count: newCount }
-        };
+      } else if (newQuantity !== 0) {
+        // only add product to cart if new quantity > 0
+        nextState.push({ itemId: id, quantity: newQuantity });
       }
-      // only add product to cart if new count > 0
-      if (newCount !== 0) {
-        const matchingProducts = products.filter((product) => product.id === id);
-        // make sure that there is a product with the given cart key (should always have length 1)
-        if (matchingProducts.length === 0) return prev;
-        return {
-          ...prev,
-          [id]: { ...matchingProducts[0], count: newCount }
-        }
-      }
-      return prev;
+      return nextState;
     });
   };
 
-  const onCheckout = () => {
-    setReceipt(cart);
-    setCart({});
+  const handleAddItemToCart = (productId) => {
+    const existingProduct = shoppingCart.findIndex(({ itemId }) => productId === itemId);
+    if (existingProduct === -1) {
+      updateProductInCart(productId, "1");
+    } else {
+      updateProductInCart(productId, shoppingCart[existingProduct].quantity + 1);
+    }
+  }
+
+  const handleRemoveItemToCart = (productId) => {
+    const existingProduct = shoppingCart.findIndex(({ itemId }) => productId === itemId);
+    if (existingProduct > -1) {
+      updateProductInCart(productId, shoppingCart[existingProduct].quantity - 1);
+    }
+  }
+
+  const handleOnCheckoutFormChange = (name, value) => (
+    setCheckoutForm((prev) => ({ ...prev, [name]: value }))
+  );
+
+  const handleOnSubmitCheckoutForm = () => {
+    setReceipt(shoppingCart);
+    setShoppingCart([]);
     setHideReceipt(false);
     setModalShown(true);
   };
 
+  const handleOnToggle = () => setIsOpen((prev) => !prev);
+
   React.useEffect(() => {
-    axios.get(API_LINK).then(({ data }) => {
+    setIsFetching(true);
+    axios.get(api).then(({ data }) => {
       setProducts(data.products);
-    });
+      setIsFetching(false);
+    }).catch((error) => setError(error.message));
   }, []);
 
   return (
@@ -71,18 +91,25 @@ export default function App() {
       <BrowserRouter>
         <main>
           <Sidebar
-            cart={cart}
+            isOpen={isOpen}
+            handleOnToggle={handleOnToggle}
+            shoppingCart={shoppingCart}
+            products={products}
             name={name}
-            setName={setName}
-            email={email}
-            setEmail={setEmail}
-            onCheckout={onCheckout}
+            handleOnCheckoutFormChange={handleOnCheckoutFormChange}
+            checkoutForm={checkoutForm}
+            handleOnSubmitCheckoutForm={handleOnSubmitCheckoutForm}
           />
           <div className={"content"}>
             <Navbar />
             <Home
-              cart={cart}
+              cart={shoppingCart}
+              isFetching={isFetching}
+              setIsFetching={setIsFetching}
               updateProductInCart={updateProductInCart}
+              handleAddItemToCart={handleAddItemToCart}
+              handleRemoveItemToCart={handleRemoveItemToCart}
+              setQuantityInCart={updateProductInCart}
               products={products}
               setModalShown={setModalShown}
             />
@@ -90,10 +117,27 @@ export default function App() {
           <CheckoutReceipt
             receipt={receipt}
             hidden={hideReceipt}
-            name={name}
-            email={email}
+            name={checkoutForm.name}
+            email={checkoutForm.email}
+            products={products}
             onClose={() => { setHideReceipt(true); setModalShown(false) }}
           />
+          <Routes>
+            <Route path={"products"}>
+              <Route path={":productId"} element={(
+                <ProductDetail
+                  setIsFetching={setIsFetching}
+                  setModalShown={setModalShown}
+                  shoppingCart={shoppingCart}
+                  handleAddItemToCart={handleAddItemToCart}
+                  handleRemoveItemToCart={handleRemoveItemToCart}
+                  setQuantityInCart={updateProductInCart}
+                  isFetching={isFetching}
+                />
+              )} />
+            </Route>
+            <Route path={"/"} element={null} />
+          </Routes>
         </main>
       </BrowserRouter>
     </div>

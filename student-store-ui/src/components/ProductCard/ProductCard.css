@@ -1,0 +1,102 @@
+.product-card {
+  transition: var(--transition);
+  background-color: var(--pure-white);
+  color: var(--font-dark);
+  text-decoration: none;
+  cursor: default;
+}
+
+.product-card img {
+  width: 100%;
+  object-fit: cover;
+  cursor: default;
+}
+
+.product-card-details {
+  padding: 15px;
+}
+
+.title-and-count {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-and-count p {
+  margin: 0;
+  flex: 1;
+  font-weight: bold;
+}
+
+.cart-count {
+  display: flex;
+  align-items: stretch;
+}
+
+/* Remove arrows on number input */
+/* Chrome, Safari, Edge, Opera */
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+
+.product-quantity {
+  font-family: var(--font);
+  font-size: 16px;
+  width: 40px;
+  margin: 0 5px;
+  text-align: center;
+  border-radius: 3px;
+  border: solid 1px var(--font-dark);
+}
+
+.product-quantity::placeholder {
+  color: var(--font-light);
+}
+
+.cart-count button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  color: var(--pure-white);
+  background-color: var(--bright-green);
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.cart-count button:hover {
+  background-color: var(--muted-green);
+}
+
+.product-price {
+  margin: 0;
+}
+
+.product-description {
+  margin: 0;
+}
+
+.product-grid .product-card {
+  width: 350px;
+  margin: 20px;
+  box-shadow: var(--shadow);
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.product-grid .product-card:hover {
+  transform: translate(5px, -5px);
+}
+
+.product-grid .product-card img {
+  border-radius: 5px 5px 0 0;
+  height: 300px;
+  cursor: pointer;
+}
