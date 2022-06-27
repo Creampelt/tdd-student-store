@@ -1,0 +1,37 @@
+.checkout-form {
+  padding: 30px 0;
+}
+
+.checkout-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.checkout-form-input {
+  padding: 10px;
+  font-family: var(--font);
+  font-size: 16px;
+  border: none;
+  margin: 5px 0;
+  background-color: var(--grey-bg);
+  border-radius: 3px;
+}
+
+.checkout-form a {
+  color: var(--bright-green);
+}
+
+.checkout-button {
+  border: none;
+  background-color: var(--bright-green);
+  padding: 10px;
+  margin: 5px 0;
+  border-radius: 3px;
+  font-family: var(--font);
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.checkout-button:hover {
+  background-color: var(--muted-green);
+}

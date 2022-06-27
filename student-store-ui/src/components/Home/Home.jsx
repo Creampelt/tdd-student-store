@@ -1,4 +1,5 @@
 import * as React from "react";
+import Hero from "../Hero/Hero";
 import ProductGrid from "../ProductGrid/ProductGrid";
 import ProductDetail from "../ProductDetail/ProductDetail";
 import About from "../About/About";
@@ -8,22 +9,6 @@ import studentStoreIcon from "../../images/student-store-icon.svg";
 import productCategories from "../../constants/productCategories";
 import { Route, Routes } from "react-router-dom";
 import "./Home.css";
-
-const Banner = () => (
-  <div className={"banner"}>
-    <div className={"banner-text"}>
-      <h1>
-        Welcome!
-        <br />
-        Find your merch!
-      </h1>
-      <p>
-        We have all kinds of goodies. Click on any of the items to start filling up your shopping cart. Checkout whenever you're ready.
-      </p>
-    </div>
-    <img src={studentStoreIcon} alt={"Student Store Icon"} />
-  </div>
-);
 
 const Search = ({ categoryIndex, setCategoryIndex, onSearch }) => {
   const [query, setQuery] = React.useState("");
@@ -53,7 +38,7 @@ const Search = ({ categoryIndex, setCategoryIndex, onSearch }) => {
   )
 };
 
-const Home = ({ cart, updateProductInCart, products, setModalShown }) => {
+const Home = ({ cart, isFetching, setIsFetching, updateProductInCart, handleAddItemToCart, handleRemoveItemToCart, setQuantityInCart, products, setModalShown }) => {
   const [categoryIndex, setCategoryIndex] = React.useState(-1);
   const [filteredProducts, setFilteredProducts] = React.useState([]);
 
@@ -75,25 +60,21 @@ const Home = ({ cart, updateProductInCart, products, setModalShown }) => {
 
   return (
     <div className={"home"}>
-      <Banner />
+      <Hero />
       <Search categoryIndex={categoryIndex} setCategoryIndex={setCategoryIndex} onSearch={search} />
       <ProductGrid
         products={filteredProducts}
         category={productCategories[categoryIndex]}
         cart={cart}
         updateProductInCart={updateProductInCart}
+        handleAddItemToCart={handleAddItemToCart}
+        handleRemoveItemToCart={handleRemoveItemToCart}
       />
       <div className={"about-and-contact"}>
         <About />
         <Contact />
       </div>
       <Footer />
-      <Routes>
-        <Route path={"products"}>
-          <Route path={":productId"} element={<ProductDetail products={products} setModalShown={setModalShown} />} />
-        </Route>
-        <Route path={"/"} element={null} />
-      </Routes>
     </div>
   );
 };

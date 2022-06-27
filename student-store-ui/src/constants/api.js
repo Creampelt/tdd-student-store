@@ -1,0 +1,1 @@
+export default "https://codepath-store-api.herokuapp.com/store";
