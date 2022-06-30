@@ -18,15 +18,28 @@ router.get("/:productId", (req, res, next) => {
   res.status(200).json({ product });
 });
 
+const validateShoppingCart = (shoppingCart, next) => {
+  let purchasedProducts = [];
+  shoppingCart.forEach((item, index) => {
+    if (!(item && typeof item.itemId === "number" && typeof item.quantity === "number")) {
+      next(new BadRequestError(`Badly formatted object at index ${index} of shoppingCart.`));
+    } else if (purchasedProducts.contains(item.itemId)) {
+      next(new BadRequestError(`Duplicate product in shopping cart found at index ${index}.`));
+    }
+    purchasedProducts.push(item.itemId);
+  });
+}
+
 router.post("/", (req, res, next) => {
   if (!req.body)
     next(new BadRequestError("Please provide user and shoppingCart in request body."));
   const { user, shoppingCart } = req.body;
   if (!(user && typeof user.name === "string" && typeof user.email === "string"))
-    next(new BadRequestError("Invalid user provided. User must be an object with `name` and `email` string parameters."));
+    next(new BadRequestError("Invalid user provided. Must be an object with `name` and `email` string parameters."));
   if (!(shoppingCart && Array.isArray(shoppingCart) && shoppingCart.length > 0)) {
-    next(new BadRequestError("Invalid shoppingCart provided. Cart must be an array with at least one element."));
+    next(new BadRequestError("Invalid shoppingCart provided. Must be an array with at least one element."));
   }
+  validateShoppingCart(shoppingCart, next);
   const purchase = Store.createPurchase(shoppingCart, user);
   res.status(201).json({ purchase });
 });
