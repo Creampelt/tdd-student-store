@@ -3,12 +3,12 @@ import SelectedProductsTable from "../SelectedProductsTable/SelectedProductsTabl
 import Modal from "../Modal/Modal";
 import "./CheckoutReceipt.css";
 
-const CheckoutReceipt = ({ receipt, hidden, name, email, onClose, products }) => (
+const CheckoutReceipt = ({ receipt, hidden, onClose }) => (
   <Modal className={"checkout-receipt"} hidden={hidden} onClose={onClose}>
     <>
       <h2>Your Receipt</h2>
-      <p>A copy of this receipt has been sent to {name} at {email}.</p>
-      <SelectedProductsTable selectedProducts={receipt} products={products} />
+      <p>Showing receipt for {receipt?.userInfo?.name} available at {receipt?.userInfo?.email}.</p>
+      <SelectedProductsTable selectedProducts={receipt?.productRows} />
       <button className={"done-button"} onClick={onClose}>Done</button>
     </>
   </Modal>

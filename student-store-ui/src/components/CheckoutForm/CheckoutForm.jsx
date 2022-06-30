@@ -1,11 +1,10 @@
 import * as React from "react";
 import "./CheckoutForm.css";
 
-const CheckoutForm = ({ isOpen, handleOnToggle, shoppingCart, checkoutForm, handleOnCheckoutFormChange, handleOnSubmitCheckoutForm }) => {
+const CheckoutForm = ({ isOpen, shoppingCart, checkoutForm, handleOnCheckoutFormChange, handleOnSubmitCheckoutForm }) => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     if (shoppingCart.length === 0) return;
-    handleOnToggle();
     handleOnSubmitCheckoutForm();
   }
 
