@@ -37,7 +37,7 @@ class Store {
       id: this.getOrderId(),
       order: shoppingCart,
       total: this.getOrderTotal(shoppingCart),
-      createdAt: (new Date()).toString()
+      createdAt: new Date().toISOString()
     };
     storage.add("purchases", purchase);
     return purchase;

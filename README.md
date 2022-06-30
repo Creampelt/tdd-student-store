@@ -272,8 +272,8 @@ The following specifications were met on the Express backend and the React front
           - [x] The `quantity` field should store a number representing how many of that item the user is purchasing.
       - [x] The `user` field should contain the name and email of the person placing the order.
       - [x] When either the `shoppingCart` or `user` fields are missing, it should throw a `400` error.
-      - [ ] If there are duplicate items in the `shoppingCart`, it should throw a `400` error.
-      - [ ] If either the `quantity` or `itemId` field is missing for any of the items in the `shoppingCart`, a `400` error should be thrown.
+      - [x] If there are duplicate items in the `shoppingCart`, it should throw a `400` error.
+      - [x] If either the `quantity` or `itemId` field is missing for any of the items in the `shoppingCart`, a `400` error should be thrown.
       - [x] When both are there, it should calculate the total cost of all the items (including quantities), add a `8.75%` tax to the total, and create a new purchase object containing 6 required fields and 1 optional field:
         - **required**:
           - [x] `id` - the new `id` of the purchase should be equal to one more than the current number of existing purchases
