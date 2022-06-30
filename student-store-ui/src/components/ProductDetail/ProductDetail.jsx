@@ -12,7 +12,7 @@ const ANIMATION_DURATION = 200;
 const ProductDetail = ({ isFetching, setIsFetching, setModalShown, handleAddItemToCart, handleRemoveItemToCart, setQuantityInCart, shoppingCart }) => {
   const [product, setProduct] = React.useState();
   const [shown, setShown] = React.useState(false);
-  const { productId } = useParams();
+  const productId = parseInt(useParams().productId);
   const navigate = useNavigate();
 
   const hide = () => {

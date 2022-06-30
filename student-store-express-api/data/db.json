@@ -145,5 +145,188 @@
       "price": 999.99
     }
   ],
-  "purchases": []
+  "purchases": [
+    {
+      "name": "Test",
+      "email": "test@test.com",
+      "id": 1,
+      "order": [
+        {
+          "itemId": 1,
+          "quantity": 5
+        },
+        {
+          "itemId": 2,
+          "quantity": 3
+        }
+      ],
+      "total": 4.89375,
+      "createdAt": "2022-06-30T23:14:25.582Z",
+      "receipt": [
+        {
+          "id": 1,
+          "name": "Rice Krispies",
+          "category": "food",
+          "image": "https://upload.wikimedia.org/wikipedia/commons/c/cd/RKTsquares.jpg",
+          "source": "https://en.wikipedia.org/wiki/Rice_Krispies_Treats",
+          "description": "Delicious corn-based rice grains melted together with marshmallows into a square-like shape.",
+          "price": 0.99,
+          "quantity": 5
+        },
+        {
+          "id": 2,
+          "name": "Flamin Hot Cheetos",
+          "category": "food",
+          "image": "https://static.openfoodfacts.org/images/products/896/400/009/0879/front_en.14.full.jpg",
+          "source": "https://world.openfoodfacts.org/cgi/product_image.pl?code=8964000090879&id=front_en",
+          "description": "No one knows what's in the powder that covers these snacks, but wow is it amazing!",
+          "price": 1.5,
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "name": "Another Test",
+      "email": "test@test.com",
+      "id": 2,
+      "order": [
+        {
+          "itemId": 2,
+          "quantity": 4
+        }
+      ],
+      "total": 6.5249999999999995,
+      "createdAt": "2022-06-30T23:15:19.821Z",
+      "receipt": [
+        {
+          "id": 2,
+          "name": "Flamin Hot Cheetos",
+          "category": "food",
+          "image": "https://static.openfoodfacts.org/images/products/896/400/009/0879/front_en.14.full.jpg",
+          "source": "https://world.openfoodfacts.org/cgi/product_image.pl?code=8964000090879&id=front_en",
+          "description": "No one knows what's in the powder that covers these snacks, but wow is it amazing!",
+          "price": 1.5,
+          "quantity": 4
+        }
+      ]
+    },
+    {
+      "name": "Another Test",
+      "email": "test@test.com",
+      "id": 3,
+      "order": [
+        {
+          "itemId": 2,
+          "quantity": 4
+        }
+      ],
+      "total": 6.5249999999999995,
+      "createdAt": "2022-06-30T23:15:30.904Z",
+      "receipt": [
+        {
+          "id": 2,
+          "name": "Flamin Hot Cheetos",
+          "category": "food",
+          "image": "https://static.openfoodfacts.org/images/products/896/400/009/0879/front_en.14.full.jpg",
+          "source": "https://world.openfoodfacts.org/cgi/product_image.pl?code=8964000090879&id=front_en",
+          "description": "No one knows what's in the powder that covers these snacks, but wow is it amazing!",
+          "price": 1.5,
+          "quantity": 4
+        }
+      ]
+    },
+    {
+      "name": "Another Test",
+      "email": "test@test.com",
+      "id": 4,
+      "order": [
+        {
+          "itemId": 2,
+          "quantity": 4
+        }
+      ],
+      "total": 6.5249999999999995,
+      "createdAt": "2022-06-30T23:17:41.173Z",
+      "receipt": {
+        "userInfo": {
+          "name": "Another Test",
+          "email": "test@test.com"
+        },
+        "productRows": [
+          {
+            "id": 2,
+            "name": "Flamin Hot Cheetos",
+            "category": "food",
+            "image": "https://static.openfoodfacts.org/images/products/896/400/009/0879/front_en.14.full.jpg",
+            "source": "https://world.openfoodfacts.org/cgi/product_image.pl?code=8964000090879&id=front_en",
+            "description": "No one knows what's in the powder that covers these snacks, but wow is it amazing!",
+            "price": 1.5,
+            "quantity": 4
+          }
+        ]
+      }
+    },
+    {
+      "name": "Test",
+      "email": "test@test.com",
+      "id": 5,
+      "order": [
+        {
+          "itemId": 2,
+          "quantity": 2
+        }
+      ],
+      "total": 3.2624999999999997,
+      "createdAt": "2022-06-30T23:17:49.985Z",
+      "receipt": {
+        "userInfo": {
+          "name": "Test",
+          "email": "test@test.com"
+        },
+        "productRows": [
+          {
+            "id": 2,
+            "name": "Flamin Hot Cheetos",
+            "category": "food",
+            "image": "https://static.openfoodfacts.org/images/products/896/400/009/0879/front_en.14.full.jpg",
+            "source": "https://world.openfoodfacts.org/cgi/product_image.pl?code=8964000090879&id=front_en",
+            "description": "No one knows what's in the powder that covers these snacks, but wow is it amazing!",
+            "price": 1.5,
+            "quantity": 2
+          }
+        ]
+      }
+    },
+    {
+      "name": "Test",
+      "email": "test@test.com",
+      "id": 6,
+      "order": [
+        {
+          "itemId": 2,
+          "quantity": 2
+        }
+      ],
+      "total": 3.2624999999999997,
+      "createdAt": "2022-06-30T23:18:09.972Z",
+      "receipt": {
+        "userInfo": {
+          "name": "Test",
+          "email": "test@test.com"
+        },
+        "productRows": [
+          {
+            "id": 2,
+            "name": "Flamin Hot Cheetos",
+            "category": "food",
+            "image": "https://static.openfoodfacts.org/images/products/896/400/009/0879/front_en.14.full.jpg",
+            "source": "https://world.openfoodfacts.org/cgi/product_image.pl?code=8964000090879&id=front_en",
+            "description": "No one knows what's in the powder that covers these snacks, but wow is it amazing!",
+            "price": 1.5,
+            "quantity": 2
+          }
+        ]
+      }
+    }
+  ]
 }
