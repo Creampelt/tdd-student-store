@@ -2,13 +2,8 @@ import * as React from "react";
 import cartHeaders from "../../constants/cartHeaders";
 import "./SelectedProductsTable.css";
 
-const SelectedProductsTable = ({ selectedProducts = [], products = [] }) => {
-  const productData = selectedProducts
-    .map(({ itemId }) => products.findIndex(({ id }) => itemId === id))
-    .map((productIndex, i) => productIndex === -1 ? null : { ...products[productIndex], ...selectedProducts[i] })
-    .filter((product) => !!product);
-  const price = productData.reduce((total, { price, quantity }) => total + price * quantity, 0);
-
+const SelectedProductsTable = ({ selectedProducts = [] }) => {
+  const price = selectedProducts.reduce((total, { price, quantity }) => total + price * quantity, 0);
   return (
     <table className={"selected-products-table"}>
       <thead>
@@ -17,8 +12,8 @@ const SelectedProductsTable = ({ selectedProducts = [], products = [] }) => {
       </tr>
       </thead>
       <tbody>
-      {productData.map(({ itemId, name, quantity, price }) => (
-        <tr key={itemId}>
+      {selectedProducts.map(({ id, name, quantity, price }) => (
+        <tr key={id}>
           <td className={"cart-product-name"}>{name}</td>
           <td className={"cart-product-quantity"}>{quantity}</td>
           <td>${price.toFixed(2)}</td>
@@ -41,7 +36,7 @@ const SelectedProductsTable = ({ selectedProducts = [], products = [] }) => {
       </tr>
       </tfoot>
     </table>
-  )
+  );
 };
 
 export default SelectedProductsTable;

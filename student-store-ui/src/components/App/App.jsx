@@ -70,10 +70,17 @@ export default function App() {
   );
 
   const handleOnSubmitCheckoutForm = () => {
-    setReceipt(shoppingCart);
-    setShoppingCart([]);
-    setHideReceipt(false);
-    setModalShown(true);
+    axios.post(api, {
+      shoppingCart,
+      user: checkoutForm
+    }).then(({ data }) => {
+      setReceipt(data.purchase.receipt);
+      setIsOpen(false);
+      setCheckoutForm({ name: "", email: "" });
+      setShoppingCart([]);
+      setHideReceipt(false);
+      setModalShown(true);
+    }).catch((e) => console.error(e.message));
   };
 
   const handleOnToggle = () => setIsOpen((prev) => !prev);
@@ -117,9 +124,6 @@ export default function App() {
           <CheckoutReceipt
             receipt={receipt}
             hidden={hideReceipt}
-            name={checkoutForm.name}
-            email={checkoutForm.email}
-            products={products}
             onClose={() => { setHideReceipt(true); setModalShown(false) }}
           />
           <Routes>
