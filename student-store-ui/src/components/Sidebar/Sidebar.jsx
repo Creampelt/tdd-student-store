@@ -4,12 +4,14 @@ import ShoppingCart from "../ShoppingCart/ShoppingCart";
 import CheckoutForm from "../CheckoutForm/CheckoutForm";
 import "./Sidebar.css";
 
-const Sidebar = ({ isOpen, handleOnToggle, shoppingCart, products, checkoutForm, handleOnCheckoutFormChange, handleOnSubmitCheckoutForm }) => (
+const Sidebar = ({ isOpen, error, checkoutSuccess, handleOnToggle, shoppingCart, products, checkoutForm, handleOnCheckoutFormChange, handleOnSubmitCheckoutForm }) => (
   <section className={`sidebar ${isOpen ? "open" : ""}`}>
     <div className={"sidebar-content"}>
       <ShoppingCart shoppingCart={shoppingCart} isOpen={isOpen} products={products} />
       <CheckoutForm
         isOpen={isOpen}
+        error={error}
+        checkoutSuccess={checkoutSuccess}
         handleOnToggle={handleOnToggle}
         shoppingCart={shoppingCart}
         checkoutForm={checkoutForm}

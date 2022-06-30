@@ -35,3 +35,7 @@
 .checkout-button:hover {
   background-color: var(--muted-green);
 }
+
+.checkout-form .success {
+  visibility: hidden;
+}
