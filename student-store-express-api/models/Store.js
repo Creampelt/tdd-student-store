@@ -1,4 +1,5 @@
 const { storage } = require("../data/storage");
+const {BadRequestError} = require("../utils/errors");
 
 class Store {
   static TAX = 0.0875;
@@ -22,12 +23,24 @@ class Store {
     return this.getPurchases().length + 1;
   }
 
+  static validateShoppingCart(shoppingCart) {
+    let purchasedProducts = [];
+    shoppingCart.forEach((item, index) => {
+      if (!(item && typeof item.itemId === "number" && typeof item.quantity === "number")) {
+        throw new BadRequestError(`Badly formatted object at index ${index} of shoppingCart.`);
+      } else if (purchasedProducts.contains(item.itemId)) {
+        throw new BadRequestError(`Duplicate product in shopping cart found at index ${index}.`);
+      }
+      purchasedProducts.push(item.itemId);
+    });
+  }
+
   static getOrderTotal(shoppingCart) {
     return shoppingCart.reduce((total, { itemId, quantity }) => {
       const product = this.getProductById(itemId);
       if (!product)
-        return 0;
-      return product.price;
+        throw new BadRequestError(`Product with ID ${itemId} does not exist.`);
+      return product.price * quantity;
     }, 0) * (1 + this.TAX);
   }
 
