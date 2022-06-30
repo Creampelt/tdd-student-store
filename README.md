@@ -296,7 +296,7 @@ I do think that the labs did help prepare me to complete the assignment. However
 
 * If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-I did notice some bugs after submission (will probably fix for next week :smiley:), and there were some glitches in the UI that I would have spent more time smoothing over. I also would have completed the navbar stretch feature (will also probably do for next week :relieved:)
+I did notice some bugs after submission, and there were some glitches in the UI that I would have spent more time smoothing over. I also would have completed the navbar stretch feature (will probably do over the weekend :relieved:)
 
 * Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
