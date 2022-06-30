@@ -28,6 +28,8 @@ class Store {
     shoppingCart.forEach((item, index) => {
       if (!(item && typeof item.itemId === "number" && typeof item.quantity === "number")) {
         throw new BadRequestError(`Badly formatted object at index ${index} of shoppingCart.`);
+      } else if (!this.getProductById(item.itemId)) {
+        throw new BadRequestError(`Product with ID ${item.itemId} does not exist.`);
       } else if (purchasedProducts.contains(item.itemId)) {
         throw new BadRequestError(`Duplicate product in shopping cart found at index ${index}.`);
       }
@@ -36,12 +38,9 @@ class Store {
   }
 
   static getOrderTotal(shoppingCart) {
-    return shoppingCart.reduce((total, { itemId, quantity }) => {
-      const product = this.getProductById(itemId);
-      if (!product)
-        throw new BadRequestError(`Product with ID ${itemId} does not exist.`);
-      return product.price * quantity;
-    }, 0) * (1 + this.TAX);
+    return shoppingCart.reduce((total, { itemId, quantity }) => (
+      this.getProductById(itemId).price * quantity
+    ), 0) * (1 + this.TAX);
   }
 
   static createPurchase(shoppingCart, user) {
@@ -50,7 +49,11 @@ class Store {
       id: this.getOrderId(),
       order: shoppingCart,
       total: this.getOrderTotal(shoppingCart),
-      createdAt: new Date().toISOString()
+      createdAt: new Date().toISOString(),
+      receipt: shoppingCart.map(({ itemId, quantity }) => ({
+        ...this.getProductById(itemId),
+        quantity
+      }))
     };
     storage.add("purchases", purchase);
     return purchase;
