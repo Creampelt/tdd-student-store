@@ -1,7 +1,7 @@
 import * as React from "react";
 import "./CheckoutForm.css";
 
-const CheckoutForm = ({ isOpen, shoppingCart, checkoutForm, handleOnCheckoutFormChange, handleOnSubmitCheckoutForm }) => {
+const CheckoutForm = ({ isOpen, error, success, shoppingCart, checkoutForm, handleOnCheckoutFormChange, handleOnSubmitCheckoutForm }) => {
   const onFormSubmit = (e) => {
     e.preventDefault();
     if (shoppingCart.length === 0) return;
@@ -31,6 +31,8 @@ const CheckoutForm = ({ isOpen, shoppingCart, checkoutForm, handleOnCheckoutForm
           onChange={({target}) => handleOnCheckoutFormChange("name", target.value)}
         />
         <button className={"checkout-button"} type={"submit"}>Checkout</button>
+        {error && <p className={"error"}>{error}</p>}
+        {success && <p className={"success"}>Success!</p>}
       </form>
     </div>
   )

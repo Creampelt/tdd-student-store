@@ -16,6 +16,8 @@ export default function App() {
   const [isFetching, setIsFetching] = React.useState(true);
   // TODO: display error message
   const [error, setError] = React.useState("");
+  const [checkoutError, setCheckoutError] = React.useState();
+  const [checkoutSuccess, setCheckoutSuccess] = React.useState(false);
   // whether sidebar is open
   const [isOpen, setIsOpen] = React.useState(false);
   const [receipt, setReceipt] = React.useState([]);
@@ -77,10 +79,15 @@ export default function App() {
       setReceipt(data.purchase.receipt);
       setIsOpen(false);
       setCheckoutForm({ name: "", email: "" });
+      setCheckoutError(null);
+      setCheckoutSuccess(true);
       setShoppingCart([]);
       setHideReceipt(false);
       setModalShown(true);
-    }).catch((e) => console.error(e.message));
+    }).catch((e) => {
+      setCheckoutError(e.message);
+      setCheckoutSuccess(false);
+    });
   };
 
   const handleOnToggle = () => setIsOpen((prev) => !prev);
@@ -99,6 +106,8 @@ export default function App() {
         <main>
           <Sidebar
             isOpen={isOpen}
+            error={checkoutError}
+            checkoutSuccess={checkoutSuccess}
             handleOnToggle={handleOnToggle}
             shoppingCart={shoppingCart}
             products={products}
