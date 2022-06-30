@@ -1,14 +1,16 @@
 const express = require("express");
 const morgan = require("morgan");
+const cors = require("cors");
 const router = require("./routes/store");
 const { NotFoundError } = require("./utils/errors");
 
 const app = express();
 
 app.use(morgan("tiny"));
+app.use(cors());
 app.use(express.json());
 
-app.get("/", (res, req) => {
+app.get("/", (req, res) => {
   res.status(200).json({ ping: "pong" });
 });
 

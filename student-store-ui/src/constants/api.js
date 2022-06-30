@@ -1,1 +1,1 @@
-export default "https://codepath-store-api.herokuapp.com/store";
+export default "http://localhost:3001/store";

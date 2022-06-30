@@ -1,5 +1,5 @@
 const { storage } = require("../data/storage");
-const {BadRequestError} = require("../utils/errors");
+const { BadRequestError } = require("../utils/errors");
 
 class Store {
   static TAX = 0.0875;
@@ -13,7 +13,7 @@ class Store {
   }
 
   static getProductById(productId) {
-    const index = this.getProducts().findIndex(({ id }) => productId === id);
+    const index = this.getProducts().findIndex(({ id }) => productId.toString() === id.toString());
     if (index === -1)
       return null;
     return this.getProducts()[index];
@@ -30,7 +30,7 @@ class Store {
         throw new BadRequestError(`Badly formatted object at index ${index} of shoppingCart.`);
       } else if (!this.getProductById(item.itemId)) {
         throw new BadRequestError(`Product with ID ${item.itemId} does not exist.`);
-      } else if (purchasedProducts.contains(item.itemId)) {
+      } else if (purchasedProducts.includes(item.itemId)) {
         throw new BadRequestError(`Duplicate product in shopping cart found at index ${index}.`);
       }
       purchasedProducts.push(item.itemId);
@@ -50,10 +50,13 @@ class Store {
       order: shoppingCart,
       total: this.getOrderTotal(shoppingCart),
       createdAt: new Date().toISOString(),
-      receipt: shoppingCart.map(({ itemId, quantity }) => ({
-        ...this.getProductById(itemId),
-        quantity
-      }))
+      receipt: {
+        userInfo: user,
+        productRows: shoppingCart.map(({itemId, quantity}) => ({
+          ...this.getProductById(itemId),
+          quantity
+        }))
+      }
     };
     storage.add("purchases", purchase);
     return purchase;
